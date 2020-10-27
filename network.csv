@@ -1,0 +1,5 @@
+﻿switch,vlanid,ipaddress,mac,interface
+Switch,10,10.10.20.175,0050.56bb.c66e,TenGigabitEthernet1/0/1
+s2,1,10.10.20.48,0050.56bb.e99c,GigabitEthernet1
+s2,1,10.10.20.253,0896.ad9e.444c,GigabitEthernet1
+s2,1,10.10.20.48,0050.56bb.eb1e,GigabitEthernet2
