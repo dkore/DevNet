@@ -6,6 +6,9 @@ To bind the multiple switches with VLan for bms automation
 | This repository is now mirrored at "PLEASE UPDATE HERE - add External repo URL after code review is completed"  Please inform a https://github.com/gve-sw/ organization admin of any changes to mirror them to the external repo |
 ## Contacts
 * Raveesh V
+* Darshan Kore
+* Vikram Goda
+* Nupur Jain
 
 ## Solution Components
 *  Python
