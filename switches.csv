@@ -1,3 +1,2 @@
 switch,hostname,port,username,password
-10.196.8.47 ,Switch,2038,admin,cisco!123
-10.196.8.47 ,Switch,2037,admin,cisco!123
+s1,<hostname/IP>,22,<username>,<password>

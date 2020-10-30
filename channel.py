@@ -28,67 +28,67 @@ import time
 import sys
 
 class channel:
-	
-	chan = None
-	ssh = None
-	
-	def __init__(self, address, username, password,port='22'):
-    #create client
-		self.ssh = paramiko.SSHClient()
-		self.ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    #ssh into device
-		self.ssh.connect(address, username=username, password=password,look_for_keys=False,port=port)
-		self.ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    #invoke a shell
-		self.chan = self.ssh.invoke_shell()
-		
-		self.chan.send('terminal length 0\n')
-		time.sleep(2)		
-	
-  #method for sending commands to shell 
-	def sendCommand(self, command):
-    #send the command
-		self.chan.send(command)
-		self.chan.send('\n')
-		time.sleep(10)
-		response = self.chan.recv(9999)
-		output = response.decode('ascii').split(',')
-    #change bytes to string format
-		output = ''.join(output)
-		return output
-    
-	#method for closing the ssh session
-	def closeSession(self):
-		self.ssh.close()
-		
-		
-class ssh:
-	
-	client = None
-	
-	def __init__(self, address, username, password,port='22'):
-		self.address = address
-		self.username = username
-		self.client = client.SSHClient()
-		self.client.set_missing_host_key_policy(client.AutoAddPolicy())
-		self.client.connect(address, username = username, password=password, look_for_keys=False,port=port)
-		
-	def sendCommand(self, command):
-		if(self.client):
-			stdin, stdout, stderr = self.client.exec_command(command)
-			while not stdout.channel.exit_status_ready():
-				# Print data when available
-				if stdout.channel.recv_ready():
-					alldata = stdout.readline()
-					prevdata = b"1"
-					while prevdata:
-						prevdata = stdout.readline()
-						alldata += prevdata
-						# return alldata to calling function
-					return alldata
-		else:
-			# return None if connection fails to open
-			return 'failed to execute commnand because the ssh connection failed to open'
 
-	def exit_ssh(self):
-		self.client.close()
+    chan = None
+    ssh = None
+
+    def __init__(self, address, username, password,port='22'):
+        #create client
+        self.ssh = paramiko.SSHClient()
+        self.ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        #ssh into device
+        self.ssh.connect(address, username=username, password=password,look_for_keys=False,port=port)
+        self.ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        #invoke a shell
+        self.chan = self.ssh.invoke_shell()
+
+        self.chan.send('terminal length 0\n')
+        time.sleep(1)
+
+    #method for sending commands to shell
+    def sendCommand(self, command):
+        #send the command
+        self.chan.send(command)
+        self.chan.send('\n')
+        time.sleep(5)
+        response = self.chan.recv(9999)
+        output = response.decode('ascii').split(',')
+        #change bytes to string format
+        output = ''.join(output)
+        return output
+
+    #method for closing the ssh session
+    def closeSession(self):
+        self.ssh.close()
+
+
+class ssh:
+
+    client = None
+
+    def __init__(self, address, username, password,port='22'):
+        self.address = address
+        self.username = username
+        self.client = client.SSHClient()
+        self.client.set_missing_host_key_policy(client.AutoAddPolicy())
+        self.client.connect(address, username = username, password=password, look_for_keys=False,port=port)
+
+    def sendCommand(self, command):
+        if(self.client):
+            stdin, stdout, stderr = self.client.exec_command(command)
+            while not stdout.channel.exit_status_ready():
+                # Print data when available
+                if stdout.channel.recv_ready():
+                    alldata = stdout.readline()
+                    prevdata = b"1"
+                    while prevdata:
+                        prevdata = stdout.readline()
+                        alldata += prevdata
+                    # return alldata to calling function
+                    return alldata
+        else:
+            # return None if connection fails to open
+            return 'failed to execute commnand because the ssh connection failed to open'
+
+    def exit_ssh(self):
+        self.client.close()
